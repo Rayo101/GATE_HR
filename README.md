@@ -31,7 +31,7 @@ In order to test if the GATE alias is now working type gate91 into the terminal.
 
 ## Using the GATE Simulation of the HR++
 
-The GATE simulation of the HR++ is in the root folder of the repo.  There are two python scripts showing two examples.  These scripts look daunting but not to worry.  The simulation is already validated so all you need to do is learn how to use the simulation.  So the things you need to know about the simulation is File/Folder controls, process controls, tracer size, tracer activity, simulation times and motion.  Some additional info for your thesis on the simulation can be found in ![this paper](https://www.mdpi.com/2076-3417/13/11/6690).  If there isn't anything there then you can find it in the script.  
+The GATE simulation of the HR++ is in the root folder of the repo.  There are two python scripts showing two examples.  These scripts look daunting but not to worry.  The simulation is already validated so all you need to do is learn how to use the simulation.  So the things you need to know about the simulation is File/Folder controls, process controls, tracer size, tracer activity, simulation times and motion.  Some additional info for your thesis on the simulation can be found in [this paper](https://www.mdpi.com/2076-3417/13/11/6690).  If there isn't anything there then you can find it in the script.  
 
 The following explanations on the use of the script is reffering to any of the two Siemens_ECAT_HR++*.py scripts.  
 
