@@ -1,0 +1,58 @@
+############################################################
+#                                                          #
+#   P H Y S I C S   A N D   P R O D U C T I O N  C U T S   #
+#                                                          #
+############################################################
+
+#   REFERENCES
+# Physics processes and production cuts - From the cylindricalPET example https://github.com/OpenGATE/GateContrib/blob/master/imaging/PET/PET_CylindricalPET_System.mac
+
+#   FOR ION SOURCES
+#/gate/physics/addPhysicsList emstandard_opt3
+#/gate/physics/addProcess RadioactiveDecay
+/gate/physics/addPhysicsList                               emstandard_opt4                         # em standard opt4 selected, best for E range we're intereseted in
+
+#   PHYSICS
+#/gate/physics/addProcess                                                PhotoElectric                           # Add the physics for photoelectric absorption
+#/gate/physics/processes/PhotoElectric/setModel                          StandardModel                           # Use the standard model for the photoelectric absorption
+
+#/gate/physics/addProcess RadioactiveDecay                               ion
+
+#/gate/physics/addProcess                                                Compton                                 # Add the physics for photons to Compton scatter
+#/gate/physics/processes/Compton/setModel                                StandardModel                           # Use the standard model for the Compton scattering effect
+#
+#/gate/physics/addProcess                                                RayleighScattering                      # Add the physics for photons to Rayleigh scater
+#/gate/physics/processes/RayleighScattering/setModel                     PenelopeModel                           # Use the Penelope model for Rayleigh scattering
+#
+#/gate/physics/addProcess                                                ElectronIonisation                      # Add the physics for ionisation
+#/gate/physics/processes/ElectronIonisation/setModel                     StandardModel e-                        # Use the standard model for electron ionisation
+#/gate/physics/processes/ElectronIonisation/setModel                     StandardModel e+                        # Use the standard model for positron ionisation
+#
+#/gate/physics/addProcess                                                Bremsstrahlung                          # Add the physics for Bremsstrahlung radiation
+#/gate/physics/processes/Bremsstrahlung/setModel                         StandardModel e-                        # Use the standard model of Bremsstrahlung radiation from electrons
+#/gate/physics/processes/Bremsstrahlung/setModel                         StandardModel e+                        # Use the standard model of Bremsstrahlung radiation from positrons
+#
+#/gate/physics/addProcess                                                PositronAnnihilation                    # Add the physics for positron annihilation
+#
+#/gate/physics/addProcess                                                MultipleScattering e+                   # Add the physics to enable multiple scattering for positrons 
+#/gate/physics/addProcess                                                MultipleScattering e-                   # Add the physics to enable multiple scattering for electrons
+#
+#/gate/physics/processList                                               Enabled                                 # Enable all physics processes
+#/gate/physics/processList                                               Initialized                             # Initialise the physics processes
+
+#  CUTS
+#/gate/physics/Gamma/SetCutInRegion                                      crystal 1.0 cm                          # Deposit gamma ray secondaries energy if the secondaries expected range less than 1.0 cm in the crystal.  
+#/gate/physics/Electron/SetCutInRegion                                   crystal 1.0 cm                          # Deposit electron secondaries energy if the secondaries expected range is less than 1.0 cm in the crystal
+#/gate/physics/Positron/SetCutInRegion                                   crystal 1.0 cm                          # Deposit electron secondaries energy if the secondaries expected range is less than 1.0 cm in the crystal
+#
+#/gate/physics/Gamma/SetCutInRegion                                      phantom1 0.1 mm                          # Deposit gamma ray secondaries energy if the secondaries expected range is less than 0.1 mm in the phantom.  
+#/gate/physics/Electron/SetCutInRegion                                   phantom1 0.1 mm                          # Deposit electron secondaries energy if the secondaries expected range is less than 0.1 mm in the phantom.  
+#/gate/physics/Positron/SetCutInRegion                                   phantom1 0.1 mm                          # Deposit positron secondaries energy if the secondaries expected range is less than 0.1 mm in the phantom.  
+#
+#/gate/physics/SetMaxStepSizeInRegion                                    phantom1 0.01 mm                         # The maximum step size a particle can have, in the phantom region.  
+#
+#/gate/physics/Gamma/SetCutInRegion                                      phantom2 0.1 mm                          # Deposit gamma ray secondaries energy if the secondaries expected range is less than 0.1 mm in the phantom.  
+#/gate/physics/Electron/SetCutInRegion                                   phantom2 0.1 mm                          # Deposit electron secondaries energy if the secondaries expected range is less than 0.1 mm in the phantom.  
+#/gate/physics/Positron/SetCutInRegion                                   phantom2 0.1 mm                          # Deposit positron secondaries energy if the secondaries expected range is less than 0.1 mm in the phantom.  
+#
+#/gate/physics/SetMaxStepSizeInRegion                                    phantom2 0.01 mm                         # The maximum step size a particle can have, in the phantom region.  

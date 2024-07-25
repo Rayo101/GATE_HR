@@ -1,0 +1,224 @@
+#######################
+#                     #
+#   G E O M E T R Y   #
+#                     #
+#######################
+
+#   REFERENCES
+#   PMT dimensions             - Karakatsanis, Nicolas A., et al. "Monte-Carlo based characterization of the counting rate (NECR) response for personalized optimization of the administered activity in clinical PET imaging." Frontiers in Biomedical Technologies 1.1 (2014): 14-34.
+#   PMT type                   - Binet, S., et al. "Construction and first tests of an in-beam PET demonstrator dedicated to the ballistic control of hadrontherapy treatments with 65 MeV protons." IEEE Transactions on Radiation and Plasma Medical Sciences 2.1 (2017): 51-60.
+#   PMT Material               - https://www.hamamatsu.com/eu/en/product/type/R1450/index.html
+#   Detector Dimensions        - Spinks, T. J., et al. "Physical characteristics of the ECAT EXACT3D positron tomograph." Physics in Medicine & Biology 45.9 (2000): 2601.
+#   Cylindrical source height  - Buffler, A., et al. "Positron emission particle tracking: A powerful technique for flow studies." International Journal of Modern Physics: Conference Series. Vol. 48. World Scientific Publishing Company, 2018.
+#   Cylindrical source radius  - Comissioning paper log, previous paper confirms radius as well.  
+
+#   CPET
+/gate/world/daughters/name                              CPET                                # The name of the new volume 
+/gate/world/daughters/insert                            cylinder                            # Inserting a cylinder into the world volume 
+/gate/CPET/setMaterial                                  Air                                 # The material the cylinder is made of 
+/gate/CPET/geometry/setRmax                             500.0 mm                            # The outer radius of the cylinder 
+/gate/CPET/geometry/setRmin                             420.0 mm                            # The inner radius of the cylinder
+/gate/CPET/geometry/setHeight                           23.4 cm                             # The height/length of the cylinder
+/gate/CPET/vis/forceWireframe                                                               # Forces the volume to be a wireframe.  It is transparent
+
+#   Sector
+/gate/CPET/daughters/name                              sector                               # The name of the new volume 
+/gate/CPET/daughters/insert                            cylinder                             # Inserting a cylinder into the world volume 
+/gate/sector/setMaterial                             Air                                    # The material the cylinder is made of 
+/gate/sector/placement/setTranslation                0.0 0.0 0.0 mm                         # The position of the box 
+/gate/sector/geometry/setRmax                        500.0 mm                               # The outer radius of the cylinder 
+/gate/sector/geometry/setRmin                        420.0 mm                               # The inner radius of the cylinder
+/gate/sector/geometry/setHeight                      23.4 cm                                # The height/length of the cylinder
+/gate/sector/geometry/setPhiStart                    -5.0 deg                               # The start angle of the cylinder 
+/gate/sector/geometry/setDeltaPhi                    5 deg                                  # The phi or x-y angle that the cylinder will span starting from phi start and ending at phi star + delta phi 
+/gate/sector/vis/forceWireframe                                                             # Forces the volume to be a wireframe.  It is transparent
+/gate/sector/vis/setVisible                          1                                      # Visibility option
+/gate/sector/vis/setColor                            red                                    # Setting the colour of the geometry
+
+# CASETTE REPEAT
+/gate/sector/repeaters/insert                         ring                                  # Linear repeater.  Repeats geometry in one direction with centre-to-centre spacing
+/gate/sector/ring/setRepeatNumber                     72                                    # The number of times the geometry is going to be repeated 
+#/gate/sector/ring/excludeBlock1                       7                                     # The fist blocks segment to be excluded, a max of 4 can be removed 
+#/gate/sector/ring/excludeBlock2                       11                                    # The second blocks segment to be excluded, a max of 4 can be removed
+
+#   CASSETTE
+/gate/sector/daughters/name                            cassette                             # The name of the new volume 
+/gate/sector/daughters/insert                          cylinder                             # Inserting a cylinder into the world volume 
+/gate/cassette/setMaterial                             Air                                  # The material the cylinder is made of 
+/gate/cassette/placement/setTranslation                0.0 0.0 0.0 mm                       # The position of the box 
+#/gate/cassette/placement/setRotationAxis              0 0 1                                # The rotation axis of the cassette 
+#/gate/cassette/placement/setRotationAngle             -5 deg                               # The amount about which the cassette is rotated about the rotation axis 
+/gate/cassette/geometry/setRmax                        500.0 mm                             # The outer radius of the cylinder 
+/gate/cassette/geometry/setRmin                        420.0 mm                             # The inner radius of the cylinder
+/gate/cassette/geometry/setHeight                      23.4 cm                              # The height/length of the cylinder
+/gate/cassette/geometry/setPhiStart                    -5.0 deg                             # ++ Same as Aboe ++
+/gate/cassette/geometry/setDeltaPhi                    5 deg                                # ++ Same as Above ++
+/gate/cassette/vis/forceWireframe                                                           # Forces the volume to be a wireframe.  It is transparent
+/gate/cassette/vis/setColor                            cyan                                 # ++ Same as Above ++
+/gate/cassette/vis/setVisible                          0                                    # ++ Same as Above ++
+
+#   BLOCK 
+/gate/cassette/daughters/name                           block                               # ++ Same as Above ++
+/gate/cassette/daughters/insert                         box                                 # Defining a box that exists within ecat 
+/gate/block/placement/setTranslation                    459.5621819276546 -20.06491818805456 0.0 mm     # The position of the box 449.85 -21.37449981
+/gate/block/placement/setRotationAxis                   0 0 1                               # ++ Same as Above ++
+/gate/block/placement/setRotationAngle                  -2.5 deg                            # ++ Same as Above ++
+/gate/block/geometry/setXLength                         80.0 mm                             # The x component of the box
+/gate/block/geometry/setYLength                         35.62 mm                            # The y component of the box
+/gate/block/geometry/setZLength                         38.34 mm                            # The z component of the box
+/gate/block/setMaterial                                 Air                                 # The material which the box is made of 
+/gate/block/vis/forceWireframe                                                              # Forces the volume to be a wireframe.  It is transparent 
+/gate/block/vis/setVisible                              1
+
+#   BLOCK REPEAT
+/gate/block/repeaters/insert                            linear                              # Linear repeater.  Repeats geometry in one direction with centre-to-centre spacing
+/gate/block/linear/setRepeatNumber                      6                                   # The number of times the geometry is going to be repeated 
+/gate/block/linear/setRepeatVector                      0. 0. 39.132 mm                     # The repeat vector specifies the vector centre-to-centre spacing of the repeated volumes
+
+#   CRYSTAL
+/gate/block/daughters/name                              crystal                             # ++ Same as Above ++
+/gate/block/daughters/insert                            box                                 # ++ Same as Above ++
+/gate/crystal/geometry/setXLength                       30.0 mm                             # ++ Same as Above ++
+/gate/crystal/geometry/setYLength                       4.05 mm                             # ++ Same as Above ++
+/gate/crystal/geometry/setZLength                       4.39 mm                             # ++ Same as Above ++
+/gate/crystal/placement/setTranslation                  -25.0 0.0 0.0 mm                    # ++ Same as Above ++
+/gate/crystal/setMaterial                               BGO                                 # ++ Same as Above ++
+/gate/crystal/vis/setColor                              cyan                              # ++ Same as Above ++
+
+#   REPEAT CRYSTAL
+/gate/crystal/repeaters/insert                          cubicArray                          # A cubic array repeater, Repeats volumes in the x,y and z direction                
+/gate/crystal/cubicArray/setRepeatNumberX               1                                   # The number of x repitiions 
+/gate/crystal/cubicArray/setRepeatNumberY               8                                   # The number of y repitiions
+/gate/crystal/cubicArray/setRepeatNumberZ               8                                   # The number of z repitiions
+/gate/crystal/cubicArray/setRepeatVector                0. 4.61 4.85 mm                     # The repeat vector specifies the centre-to-centre spacing of the repeated volumes,  0. 4.51 4.85
+
+#   PMT OUTER LAYER 
+/gate/block/daughters/name                             pmt1                                 # ++ Same as Above ++ 
+/gate/block/daughters/insert                           cylinder                             # ++ Same as Above ++
+/gate/pmt1/placement/setTranslation                    15.0 0.0 0.0 mm                      # ++ Same as Above ++ 
+/gate/pmt1/placement/alignToX                                                               # Aligns the axial component of the cylinder with the x axis 
+/gate/pmt1/geometry/setRmax                            8.79 mm                              # ++ Same as Above ++    
+/gate/pmt1/geometry/setRmin                            7.79 mm                              # ++ Same as Above ++
+/gate/pmt1/geometry/setHeight                          50.0 mm                              # ++ Same as Above ++
+/gate/pmt1/setMaterial                                 Borosilicate-Glass                   # ++ Same as Above ++
+/gate/pmt1/vis/forceSolid                                                                   # Forces the volume to be a solid and not wireframe 
+/gate/pmt1/vis/setVisible                              1                                    # ++ Same as Above ++
+/gate/pmt1/vis/setColor                                red                                  # ++ Same as Above ++
+
+#	PMT OUTER LAYER REPEATER
+/gate/pmt1/repeaters/insert                            cubicArray                           # ++ Same as Above ++ 
+/gate/pmt1/cubicArray/setRepeatNumberX                 1                                    # ++ Same as Above ++
+/gate/pmt1/cubicArray/setRepeatNumberY                 2                                    # ++ Same as Above ++
+/gate/pmt1/cubicArray/setRepeatNumberZ                 2                                    # ++ Same as Above ++  
+/gate/pmt1/cubicArray/setRepeatVector                  0.0 18.04 18.94 mm                   # ++ Same as Above ++
+
+#   PMT INNER LAYER
+/gate/pmt1/daughters/name                              pmt2                                 # ++ Same as Above ++
+/gate/pmt1/daughters/insert                            cylinder                             # ++ Same as Above ++
+/gate/pmt2/placement/setTranslation                    0.0 0.0 0.0 mm                       # ++ Same as Above ++
+#/gate/pmt2/placement/alignToX                                                              # ++ Same as Above ++
+/gate/pmt2/geometry/setRmax                            7.79 mm                              # ++ Same as Above ++
+/gate/pmt2/geometry/setRmin                            0.0  mm                              # ++ Same as Above ++
+/gate/pmt2/geometry/setHeight                          48.0 mm                              # ++ Same as Above ++
+/gate/pmt2/setMaterial                                 Vacuum                               # ++ Same as Above ++
+/gate/pmt2/vis/forceSolid                                                                   # ++ Same as Above ++
+/gate/pmt2/vis/setVisible                              0                                    # ++ Same as Above ++
+/gate/pmt2/vis/setColor                                green                                # ++ Same as Above ++
+
+#   PMT TOP CAP
+/gate/pmt1/daughters/name                              pmt1TopCap                           # ++ Same as Above ++
+/gate/pmt1/daughters/insert                            cylinder                             # ++ Same as Above ++
+/gate/pmt1TopCap/placement/setTranslation              0.0 0.0 24.5 mm                      # ++ Same as Above ++
+#/gate/pmt2/placement/alignToX                                                              # ++ Same as Above ++
+/gate/pmt1TopCap/geometry/setRmax                      7.79 mm                              # ++ Same as Above ++
+/gate/pmt1TopCap/geometry/setRmin                      0.00 mm                              # ++ Same as Above ++
+/gate/pmt1TopCap/geometry/setHeight                    1.00 mm                              # ++ Same as Above ++
+/gate/pmt1TopCap/setMaterial                           Borosilicate-Glass                   # ++ Same as Above ++
+/gate/pmt1TopCap/vis/forceSolid                                                             # ++ Same as Above ++
+/gate/pmt1TopCap/vis/setVisible                        1                                    # ++ Same as Above ++
+/gate/pmt1TopCap/vis/setColor                          red                                  # ++ Same as Above ++
+
+#   PMT BOTTOM CAP
+/gate/pmt1/daughters/name                              pmt1BottomCap                        # ++ Same as Above ++
+/gate/pmt1/daughters/insert                            cylinder                             # ++ Same as Above ++
+/gate/pmt1BottomCap/placement/setTranslation           0.0 0.0 -24.5 mm                     # ++ Same as Above ++
+#/gate/pmt2/placement/alignToX                                                              # ++ Same as Above ++
+/gate/pmt1BottomCap/geometry/setRmax                   7.79 mm                              # ++ Same as Above ++
+/gate/pmt1BottomCap/geometry/setRmin                   0.0  mm                              # ++ Same as Above ++
+/gate/pmt1BottomCap/geometry/setHeight                 1.0 mm                               # ++ Same as Above ++
+/gate/pmt1BottomCap/setMaterial                        Borosilicate-Glass                   # ++ Same as Above ++
+/gate/pmt1BottomCap/vis/forceSolid                                                          # ++ Same as Above ++
+/gate/pmt1BottomCap/vis/setVisible                     1                                    # ++ Same as Above ++
+/gate/pmt1BottomCap/vis/setColor                       red                                  # ++ Same as Above ++
+
+#   ATTACH SYSTEM 
+/gate/systems/CPET/sector/attach                       sector                               # GATE has a template for detector systems.  CPET is one.  The components are ordered in a certain way.  For exmaple crystals and blocks need to be ordered in a certain manner
+/gate/systems/CPET/cassette/attach                     cassette                             # Adding the cassette component of the CPET system 
+/gate/systems/CPET/module/attach                       block                                # Adding the block component of the CPET system
+/gate/systems/CPET/crystal/attach                      crystal                              # Adding the crystal component of the CPET system.
+
+#   ATTACH CRYSTAL SD
+/gate/crystal/attachCrystalSD                                                               # Making the Crystal Sensitive to interactions 
+
+#   PHANTOM
+#/gate/world/daughters/name         		               phantom                              # ++ Same as Above ++ 
+#/gate/world/daughters/insert       		               cylinder                             # ++ Same as Above ++ 
+#/gate/phantom/geometry/setRmin     		               0.0 cm                               # ++ Same as Above ++ 
+#/gate/phantom/geometry/setRmax     		               5.0 mm                               # ++ Same as Above ++ 
+#/gate/phantom/geometry/setHeight   	                   11.5 mm                              # ++ Same as Above ++ 
+#/gate/phantom/setMaterial          		               PMMA                                 # ++ Same as Above ++ 
+#/gate/phantom/vis/setColor         		               red                                  # ++ Same as Above ++ 
+#/gate/phantom/placement/setTranslation                0.00 70.00 0.00 mm                    # Specify the placement of the source within the world volume
+
+#   NRW-100 PHANTOM
+/gate/world/daughters/name                                 phantom1
+/gate/world/daughters/insert                               sphere
+/gate/phantom1/geometry/setRmin                             0.0 mm
+/gate/phantom1/geometry/setRmax                             5000.0 um
+/gate/phantom1/setMaterial                                  Nrw-mat
+/gate/phantom1/vis/setColor                                 red
+/gate/phantom1/placement/setTranslation                     10.00 10.00 10.00 mm  
+
+#/gate/world/daughters/name                                 phantom2
+#/gate/world/daughters/insert                               sphere
+#/gate/phantom2/geometry/setRmin                             0.0 mm
+#/gate/phantom2/geometry/setRmax                             300.0 um
+#/gate/phantom2/setMaterial                                  Nrw-mat
+#/gate/phantom2/vis/setColor                                 blue
+#/gate/phantom2/placement/setTranslation                     -100.00 0.00 0.00 mm  
+      
+
+# -323.247 -0.895 104.387
+#-56.44853003624608 -46.262784528334635 -2.7144621268983276
+
+#   ORBITING PHANTOM
+#/gate/phantom/moves/insert                            orbiting                             # Specify the motion to simulate
+#/gate/phantom/orbiting/setSpeed                       10800.0 deg/s                        # Specify the speed of orbital motion -360 deg/s
+#/gate/phantom/orbiting/setPoint1                      0.00 0.00 0.0 mm                     # Anchor point 1 for orbital axis -2.60415503 1.18758883 0.0
+#/gate/phantom/orbiting/setPoint2                      0.00 0.00 1.0 mm                     # Anchor point 2 for orbital axis. -2.60415503 1.18758883 1.0                                                           # Rebuild the scene after every step
+
+# OSCILATING PHANTOM
+#/gate/phantom/moves/insert                            osc-trans                            # +++ Same as Above +++
+#/gate/phantom/osc-trans/setAmplitude                  0.0 0.0 0.33556611 mm                # Set the amplitude of the oscillation 
+#/gate/phantom/osc-trans/setFrequency                  0.98374 Hz                           # Set the frequency of oscillation
+#/gate/phantom/osc-trans/setPhase                      50.5680057 rad                       # Set the phase of the oscillation
+#/gate/geometry/rebuild         
+
+# For Testing, ignore for general use
+#/gate/actor/addActor                                         EnergySpectrumActor energyActor
+#/gate/actor/energyActor/saveEveryNSeconds                    0.001 s
+#/gate/actor/energyActor/addFilter                            particleFilter
+#/gate/actor/energyActor/particleFilter/addParticle           e+
+#/gate/actor/energyActor/save                                 output/positronSpectrum.root
+#/gate/actor/energyActor/energySpectrum/setEmin               0 eV
+#/gate/actor/energyActor/energySpectrum/setEmax               2 MeV
+#/gate/actor/energyActor/energySpectrum/setNumberOfBins       2000
+#/gate/actor/energyActor/attachTo                             phantom
+
+/gate/actor/addActor ProductionAndStoppingActor      MyActor
+/gate/actor/MyActor/addFilter                            particleFilter
+/gate/actor/MyActor/particleFilter/addParticle           e+
+/gate/actor/MyActor/save                             Range.root
+/gate/actor/MyActor/attachTo                         phantom1
+/gate/actor/MyActor/setResolution                    10 10 10
+/gate/actor/MyActor/stepHitType                      post

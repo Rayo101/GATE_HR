@@ -1,0 +1,105 @@
+#####################
+#                   #
+#  S O U R C E / S  #
+#                   #
+#####################
+
+#   REFERENCES - Adjusted Positron activity taking into account electron capture 
+# Ga-68 - Radiotracer generators for industrial applications, IAEA Radiation Technology Series No. 5
+# Na-22 - https://ns.ph.liv.ac.uk/~ajb/radiometrics/glossary/sodium22.html
+# F-18  - The Radiopharmaceutical Chemistry of Fluorine-18: Nucleophilic Fluorinations
+
+#  1-GALLIUM - 68 
+/gate/source/addSource                         ga68.1 gps                         # Source name 
+/gate/source/ga68.1/setActivity                  14800000 Bq                       # Activity of source  1978020 Bq
+/gate/source/ga68.1/gps/particle                 e+                               # Specifying the primary particle to be positrons
+/gate/source/ga68.1/gps/energytype               UserSpectrum                     # Specifying the energy type
+/gate/source/ga68.1/gps/setSpectrumFile          /home/rayhaan/GATE_HR++/data/ga68_spectrum.txt           # Where to find user defined spectrum
+#/gate/source/ga68.1/gps/type                     Volume                          # Specifying that the source is a volume
+#/gate/source/ga68.1/gps/shape                    Sphere                          # Specifying the shape of the voxelised source
+#/gate/source/ga68.1/gps/radius                   301.0 um                         # Radius of source 
+#/gate/source/ga68.1/gps/radius0                  300.0 um                         # Radius of source 
+/gate/source/ga68.1/setForcedUnstableFlag        true                             # Forcing the source to be unstable and have the ability to decay
+/gate/source/ga68.1/setForcedHalfLife            4062.6 s                         # Sepecifying the half life of the source, 2.341e+7
+/gate/source/ga68.1/gps/centre                   0.0 0.0 0.0 cm                   # Specifying the position of the source
+/gate/source/ga68.1/gps/angtype                  iso                              # Specfying the angular distribution of the decay particles
+/gate/source/ga68.1/attachTo                     phantom1                          # Attaching the source to a volume.  This is for motion.  The location os the source is now relative to the volume it is attached to.
+
+#  2-GALLIUM - 68 
+#/gate/source/addSource                         ga68.2 gps                         # Source name 
+#/gate/source/ga68.2/setActivity                  17411624 Bq                       # Activity of source  1978020 Bq
+#/gate/source/ga68.2/gps/particle                 e+                               # Specifying the primary particle to be positrons
+#/gate/source/ga68.2/gps/energytype               UserSpectrum                     # Specifying the energy type
+#/gate/source/ga68.2/gps/setSpectrumFile          /home/rayhaan/GATE_HR++/data/ga68_spectrum.txt           # Where to find user defined spectrum
+##/gate/source/ga68.2/gps/type                     Volume                          # Specifying that the source is a volume
+##/gate/source/ga68.2/gps/shape                    Sphere                          # Specifying the shape of the voxelised source
+##/gate/source/ga68.2/gps/radius                   301.0 um                         # Radius of source 
+##/gate/source/ga68.2/gps/radius0                  300.0 um                         # Radius of source 
+#/gate/source/ga68.2/setForcedUnstableFlag        true                             # Forcing the source to be unstable and have the ability to decay
+#/gate/source/ga68.2/setForcedHalfLife            4062.6 s                         # Sepecifying the half life of the source, 2.341e+7
+#/gate/source/ga68.2/gps/centre                   0.0 0.0 0.0 cm                   # Specifying the position of the source
+#/gate/source/ga68.2/gps/angtype                  iso                              # Specfying the angular distribution of the decay particles
+#/gate/source/ga68.2/attachTo                     phantom2                          # Attaching the source to a volume.  This is for motion.  The location os the source is now relative to the volume it is attached to
+
+#   FLUORINE - 18
+#/gate/source/addSource                         f18 gps                         # ++ Same as Above ++
+#/gate/source/f18/setActivity                   2150292 Bq                      # ++ Same as Above ++ 
+#/gate/source/f18/gps/particle                  e+                              # ++ Same as Above ++ 
+#/gate/source/f18/gps/energytype                UserSpectrum                    # ++ Same as Above ++ 
+#/gate/source/f18/gps/setSpectrumFile           data/f18_spectrum.txt           # ++ Same as Above ++ 
+#/gate/source/f18/setForcedUnstableFlag         true                            # ++ Same as Above ++  
+#/gate/source/f18/setForcedHalfLife             6586.26 s                       # ++ Same as Above ++
+#/gate/source/f18/gps/centre                    0.0 0.0 0.0 cm                  # ++ Same as Above ++
+#/gate/source/f18/gps/angtype                   iso                             # ++ Same as Above ++
+#/gate/source/f18/attachTo                      phantom                         # ++ Same as Above ++
+
+#   SODIUM - 22
+#/gate/source/addSource                          na22 gps                        # ++ Same as Above ++
+#/gate/source/na22/setActivity                   2042400 Bq                      # ++ Same as Above ++ # 0.000021 Ci 2220000
+#/gate/source/na22/gps/particle                  e+                              # ++ Same as Above ++
+#/gate/source/na22/gps/energytype                UserSpectrum                    # ++ Same as Above ++
+#/gate/source/na22/gps/setSpectrumFile           data/na22_spectrum.txt          # ++ Same as Above ++
+#/gate/source/na22/setForcedUnstableFlag         true                            # ++ Same as Above ++
+#/gate/source/na22/setForcedHalfLife             8.199e+7 s                      # ++ Same as Above ++
+#/gate/source/na22/gps/centre                    0.0 0.0 0.0 cm                  # ++ Same as Above ++
+#/gate/source/na22/gps/angtype                   iso                             # ++ Same as Above ++
+#/gate/source/na22/attachTo                      phantom                         # ++ Same as Above ++
+
+#   GALLIUM - 68 - ION SOURCE
+#/gate/source/addSource                      ga68 gps                            # ++ Same as Above ++
+#/gate/source/ga68/gps/particle				 ion                                 # Defining an ion source.  The most realistic way of simulating a source, although slow
+#/gate/source/ga68/gps/ion 					 31 68 0 0                           # Defining the Z, A, ionic charge and excitaion energy 
+#/gate/source/ga68/setForcedUnstableFlag 	 true                                # Forcing the ion to be unstable, not particularly necessary
+#/gate/source/ga68/useDefaultHalfLife                                            # Use the half life from GATE
+#/gate/source/ga68/gps/energytype 			 Mono                                # Set the excitation energy type to mono energy
+#/gate/source/ga68/gps/monoenergy 			 0. MeV                              # Setting the excitation energy
+#/gate/source/ga68/setActivity 				 2220000 Bq                          # ++ Same as Above ++
+#/gate/source/ga68/gps/centre                0.0 0.0 0.0 cm                      # ++ Same as Above ++ 
+#/gate/source/ga68/gps/angtype               iso                                 # ++ Same as Above ++ 
+#/gate/source/ga68/attachTo                  phantom                             # ++ Same as Above ++
+
+#   FLUORINE - 18 - ION SOURCE
+#/gate/source/addSource                     f18 gps                              # ++ Same as Above ++ 
+#/gate/source/f18/gps/particle				ion                                  # ++ Same as Above ++ 
+#/gate/source/f18/gps/ion 					9 18 0 0                             # ++ Same as Above ++
+#/gate/source/f18/setForcedUnstableFlag 	true                                 # ++ Same as Above ++
+#/gate/source/f18/useDefaultHalfLife                                             # ++ Same as Above ++
+#/gate/source/f18/gps/energytype 			Mono                                 # ++ Same as Above ++
+#/gate/source/f18/gps/monoenergy 			0. MeV                               # ++ Same as Above ++
+#/gate/source/f18/setActivity 				2220000 Bq                           # ++ Same as Above ++
+#/gate/source/f18/gps/centre                0.0 0.0 0.0 cm                       # ++ Same as Above ++ 
+#/gate/source/f18/gps/angtype               iso                                  # ++ Same as Above ++ 
+#/gate/source/f18/attachTo                  phantom                              # ++ Same as Above ++ 
+
+#   SODIUM - 22 - ION SOURCE
+#/gate/source/addSource                     f18 gps                              # ++ Same as Above ++
+#/gate/source/f18/gps/particle				ion                                  # ++ Same as Above ++
+#/gate/source/f18/gps/ion 					11 22 0 0                            # ++ Same as Above ++
+#/gate/source/f18/setForcedUnstableFlag 	true                                 # ++ Same as Above ++
+#/gate/source/f18/useDefaultHalfLife                                             # ++ Same as Above ++
+#/gate/source/f18/gps/energytype 			Mono                                 # ++ Same as Above ++
+#/gate/source/f18/gps/monoenergy 			0. MeV                               # ++ Same as Above ++
+#/gate/source/f18/setActivity 				2220000 Bq                           # ++ Same as Above ++
+#/gate/source/f18/gps/centre                0.0 0.0 0.0 cm                       # ++ Same as Above ++ 
+#/gate/source/f18/gps/angtype               iso                                  # ++ Same as Above ++ 
+#/gate/source/f18/attachTo                  phantom                              # ++ Same as Above ++  

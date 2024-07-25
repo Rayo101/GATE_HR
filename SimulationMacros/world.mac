@@ -1,0 +1,16 @@
+#####################
+#                   #
+#     W O R L D     #
+#                   #
+#####################
+
+#   MATERIALS DATABASE
+/gate/geometry/setMaterialDatabase                      /home/rayhaan/GATE_HR++/data/GateMaterials.db           # Database of materials that can be used
+
+#   WORLD
+/gate/world/geometry/setXLength                         1.1 m                           # The x component of the world
+/gate/world/geometry/setYLength                         1.1 m                           # The y component of the world
+/gate/world/geometry/setZLength                         30. cm                          # The z component of the world
+/gate/world/setMaterial                                 Air                             # The material the world
+/gate/world/vis/setColor                                black         
+/gate/world/vis/setVisible                              0      
